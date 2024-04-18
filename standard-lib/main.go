@@ -11,4 +11,5 @@ func main() {
 	_case.MathCase()
 	_case.ReflectCase()
 	_case.RegexpCase()
+	_case.SortCase()
 }
