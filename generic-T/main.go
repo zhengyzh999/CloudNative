@@ -1,8 +1,8 @@
 package main
 
 import (
+	_case "CloudNative/generic-T/case"
 	"context"
-	_case "go-base/generic-T/case"
 	"os"
 	"os/signal"
 )
