@@ -31,12 +31,16 @@ func tool() func() int {
 }
 
 func CloseSourceTrap() {
-	// 错误方式。大概率是因为外部函数的局部变量在协程中不可见，没能保证原子性，导致其他协程内存读取数据出现脏读
-	//for i := 0; i < 100; i++ {
-	//	go func() {
-	//		fmt.Printf("i = %v\n", i)
-	//	}()
-	//}
+	// 错误方式。大概率是因为闭包使用外部函数的局部变量，该部分数据协程间共享，
+	// 外部函数协程修改，内部函数协程读取，又没有加锁，导致其他协程从内存读取数据时出现脏读
+	/*i := 0
+	for ; i < 10; i++ {
+		go func() {
+			i = i + 99
+		}()
+		fmt.Println("i = ", i)
+	}
+	fmt.Printf("%v\n", i)*/
 	for i := 0; i < 100; i++ {
 		go func(j int) {
 			fmt.Printf("i = %v\n", j)
