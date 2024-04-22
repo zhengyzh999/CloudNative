@@ -17,7 +17,7 @@ func CondCase() {
 }
 
 func initList(list *[]int, c *sync.Cond) {
-	// 主叫方，可以持锁，也可以补持锁
+	// 主叫方，可以持锁，也可以不持锁
 	c.L.Lock()
 	defer c.L.Unlock()
 	for i := 0; i < 10; i++ {
