@@ -1,0 +1,21 @@
+package goroutine
+
+import (
+	"log"
+	"time"
+)
+
+type Goroutine struct {
+}
+
+func (g *Goroutine) Name() string {
+	return "goroutine"
+}
+func (g *Goroutine) Run() {
+	log.Println(g.Name(), "Run")
+	for i := 0; i < 10; i++ {
+		go func() {
+			time.Sleep(30 * time.Second)
+		}()
+	}
+}
