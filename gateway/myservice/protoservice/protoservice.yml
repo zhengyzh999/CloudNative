@@ -1,0 +1,12 @@
+type: google.api.Service
+config_version: 3
+http:
+  rules:
+    - selector: MyService.MyService.Echo
+      post: "/v1/echo/{id}"
+      body: "*"
+      additional_bindings:
+        - get: "/v1/echo/{id}"
+    - selector: MyService.MyService.EchoSimple
+      post: "/v1/echo/simple"
+      body: "*"
