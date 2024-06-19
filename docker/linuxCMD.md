@@ -7,4 +7,4 @@
 7. domainname 查看域名
 8. mount -t cgroup 查看系统所有控制组
 9. scp sourceFile targetPath linux间互传文件，可以上传和下载。source和target是相对的
-10. 
+10. $(linux cmd) 可以获取命令产生的结果
