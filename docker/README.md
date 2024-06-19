@@ -79,3 +79,16 @@
 4. image镜像。一个镜像存储了一些相关信息
 5. layer镜像层
 6. dockerfile
+
+# docker容器数据持久化解决方案
+# docker数据卷的3种挂载方式
+1. 匿名数据卷 docker run -v /xxx imageName 在容器中创建一个匿名数据卷，可以跟随容器删除一起删除
+2. 具名数据卷 docker volume create xxx; docker run -v xxx:/data 创建一个具名数据卷，在启动容器时使用。不能随容器删除，只能docker volume rm xxx删除
+3. bind文件 docker run -v /宿主机/path/:/data 创建一个绑定宿主机文件夹的数据卷，只能通过删除宿主机上的文件进行删除
+
+# docker共享数据卷实现数据容器
+1. docker run --volume-from containerID imageName 启动一个容器，数据卷配置来自其他容器。停止或删除容器，都不会对后者有影响
+
+# docker数据卷实现备份和迁移
+1. 备份 docker run --rm --volumes-from containerID -v /宿主机/path:/xxx imageName tar cvf /xxx/data.tar 备份目标
+2. 迁移 docker run --rm --volumes-from containerID -v /宿主机/path:/xxx imageName tar xvf /xxx/data.tar -C 迁移目标

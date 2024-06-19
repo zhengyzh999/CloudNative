@@ -14,3 +14,11 @@
 14. docker run -d imageName:version 以镜像启动容器，-d代表后台运行
 15. docker start/stop -d containerId 启动/关闭容器，-d代表后台运行
 16. docker build --add-host hostname:ip 不会对生成的镜像产生影响，但docker run --add-host会
+17. docker rm -v containerID 删除容器时，-v删除数据卷。只删除匿名数据卷
+18. docker rm `docker ps -a -q` 删除所有未运行的容器
+19. docker volume ls 查看所有数据卷
+20. docker volume create xxx 创建名为xxx的具名数据卷
+21. docker run -v /xxx imageName 运行一个容器，并创建一个匿名数据卷
+22. docker run -v /xxx -v vol_name:/data1:ro(rw) -v /宿主机/path:/data2 imageName 启动一个容器，创建一个匿名数据卷、使用一个具名数据卷、创建一个与宿主机某路径绑定的数据卷
+23. docker run --rm -v /data imageName 启动一个停止即删除的容器，指定的匿名数据卷也会被删除
+24. 
