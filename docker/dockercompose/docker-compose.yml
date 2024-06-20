@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: Dockerfile.compose
+      labels:
+        myhello: 1.0
+        env: test
+    container_name: "myweb"
+    depends_on:
+      - redis
+    ports:
+      - "80:80"
+    command: [ "--param1=p1","--param2=p2" ]
+    environment:
+      env1: a
+      env2: b
+    healthcheck:
+      test: [ "CMD-SHELL","statuscode=`curl -o /dev/null -s -w %{http_code} http://localhost/health`;[ $$statuscode -le 400] || exit 1" ]
+      interval: 5s
+      timeout: 1s
+      retries: 5
+      start_period: 5s
+    networks:
+      - mynetwork
+      - net1
+  redis:
+    image: redis:latest
+    container_name: myredis
+    expose:
+      - 6379
+    command: redis-server --requirepass 123456
+    volumes:
+      - /data
+    networks:
+      - mynetwork
+      - net2
+networks:
+  net1: { }
+  net2: { }
+  mynetwork:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.0.0/24"
